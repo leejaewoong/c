@@ -89,8 +89,43 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int insertSortedLL(LinkedList *ll, int item)
-{
-	/* add your code here */
+{	
+	// 1.
+	ListNode *newNode = malloc(sizeof(ListNode)); // 런타임에 실행되는 함수이기 때문에 malloc로 메모리 할당
+	if(newNode == NULL) // 힙에 할당할 메모리가 없는 경우 -1 반환
+	{
+		return -1;
+	} 
+	newNode->item = item; // newNode의 item 멤버에 전달 받은 매개변수 item 입력
+	newNode->next = NULL; // 일단 next에 NULL 입력
+
+	// 2.
+	int idx = 0;
+	ListNode *cur = ll->head;
+	ListNode *prev = NULL;
+
+	while(cur != NULL && cur->item < item) // 입력받은 매개변수 item이 들어갈 위치를 확인하기 위해 한 칸씩 이동
+	{
+		prev = cur; 
+		cur = cur->next;
+		idx++;
+	}
+
+	if(ll->head == NULL || item < ll->head->item) 
+	{
+		newNode->next = ll->head; // newNode의 next에 기존의 head가 가리키는 주소를 삽입
+		ll->head = newNode; // head가 가리키는 주소에는 newNode의 주소를 삽입
+	}
+	else
+	{
+		newNode->next = cur; // newNode의 next에 while문에서 지정한 cur 주소를 삽입
+		prev->next = newNode; // prev의 next에 newNode의 주소를 삽입
+	}
+
+	// 3.
+	ll->size++; // 구조체의 size 멤버 변수의 값을 지정된 타입만큼 증가
+
+	return idx; // 입력 받은 매개변수의 인덱스를 반환
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
