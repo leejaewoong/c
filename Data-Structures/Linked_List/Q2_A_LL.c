@@ -103,7 +103,34 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+    // ll1 사이즈와 ll2 사이즈를 비교하여 n에 저장 >>> 반복 횟수 설정에 필요
+	int len1 = ll1->size; 
+	int len2 = ll2->size; 
+	
+	int n = (len1 >= len2) ? len2 : len1;
+
+	// ll1과 ll2에 노드가 없을 경우 함수 종료
+	if(len1 == 0 || len2 == 0)
+	{
+		return;
+	}
+
+	int idx = 0; // ll1에 삽입할 위치를 추적할 idx 선언
+
+	// ll1과 ll2의 노드를 순회하며 노드 삽입, 삭제
+	for(int i = 0; i < n; i++)
+	{		
+		ListNode *cur = ll2->head; // ll2의 노드를 가리킬 포인트 선언
+
+		insertNode(&ll1, idx, cur->item); // ll1에 노드 삽입
+
+		idx += 2; // 다음 삽입 위치로 idx 업데이트				
+
+		removeNode(&ll2, 0); // ll1에 삽입한 노드를 ll2에서 삭제 / 삭제 시 노드가 당겨지므로 항상 첫번째 노드를 삭제
+	}
+
+	// 함수 종료
+	return;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -230,3 +257,4 @@ int removeNode(LinkedList *ll, int index){
 
 	return -1;
 }
+
