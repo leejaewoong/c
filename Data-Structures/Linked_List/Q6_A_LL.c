@@ -88,7 +88,50 @@ int main()
 
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* add your code here */
+    // 리스트에 노드가 없는 경우 함수 종료
+	if(*ptrHead == NULL || (*ptrHead)->next == NULL) 
+	{
+		return 0;
+	}
+	else  
+	{
+		ListNode *max = *ptrHead; // 가장 큰 값의 노드를 저장하기 위한 포인터 선언 		
+		ListNode *maxpre = NULL; // 가장 큰 값의 노드 이전의 노드를 저장하기 위한 포인터 선언
+		ListNode *cur = *ptrHead; // 현재 주목 노드를 추적하기 위한 포인터 선언
+		ListNode *pre = NULL; // 현재 주목 노드 이전 노드를 추적하기 위한 포인터 선언
+
+		while(cur != NULL) // 연결 노드가 없을 때까지 반복
+		{
+			// 주목하고 있는 노드가 max보다 크면 모든 포인터를 업데이트
+			if(cur->item > max->item)
+			{
+				max = cur;
+				maxpre = pre;							
+				pre = cur;
+				cur = cur->next;					
+			}
+
+			// 주목하고 있는 노드가 max보다 작으면 pre, cur 포인터만 업데이트
+			else
+			{
+				pre = cur;
+				cur = cur->next;					
+			}			
+		}
+
+		// 만약 첫번째 노드의 값이 가장 크면 함수 종료
+		if(maxpre == NULL)		
+		{
+			return 0;		
+		}		
+		
+		// 그렇지 않은 경우, max 노드를 이동시키며 노드간의 연결을 조정
+		maxpre->next = max->next;
+		max->next = *ptrHead;
+		*ptrHead = max;	
+		
+		return 1;		
+	}	
 }
 
 //////////////////////////////////////////////////////////////////////////////////

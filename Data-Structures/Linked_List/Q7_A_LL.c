@@ -87,7 +87,22 @@ int main()
 
 void RecursiveReverse(ListNode **ptrHead)
 {
-	/* add your code here */
+	// 노드가 없거나 1개뿐이면, 함수 종료
+	if(*ptrHead == NULL || (*ptrHead)->next == NULL)
+	{
+		return;
+	}
+
+	ListNode *rest = (*ptrHead)->next; // 마지막으로 수행할 함수에서 첫 노드로 연결할 포인터 선언
+
+	// 마지막 노드의 직전 노드부터 거꾸로 아래 연산을 수행
+	RecursiveReverse(&((*ptrHead)->next)); 
+
+	// 다음 노드의 next가 현재 노드를 가리키도록 연결 후 현재 노드의 next에는 NULL을 연결
+	(*ptrHead)->next->next = *ptrHead; 
+	(*ptrHead)->next = NULL;
+	
+	*ptrHead = rest; // head에 연결될 첫 노드를 업데이트
 }
 
 //////////////////////////////////////////////////////////////////////////////////

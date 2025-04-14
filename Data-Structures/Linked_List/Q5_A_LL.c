@@ -102,7 +102,28 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	int total = ll->size; // 리스트의 전체 길이 확인
+	int split = (total % 2 == 0) ? total / 2 : (total / 2) + 1;	// 리스트 분리 지점 설정
+
+	ListNode *cur = ll->head; // 리스트의 노드를 순회할 포인트 선언	
+
+	// 전체 노드를 순회하며 아래 연산 수행
+	for(int i = 0; i < total; i++)
+	{		
+		// 리스트 분리 지점까지는 원래의 리스트의 원소를 순차적으로 첫번째 리스트에 삽입
+		if(i < split) 
+		{
+			insertNode(resultFrontList, resultFrontList->size, cur->item);						
+		}		
+
+		// 리스트 분리 후에는 원래의 리스트의 원소를 순차적으로 두번째 리스트에 삽입
+		else  
+		{
+			insertNode(resultBackList, resultBackList->size, cur->item);						
+		}
+				
+		cur = cur->next; // 다음 순회할 노드에 맞춰 포인터 업데이트
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

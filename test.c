@@ -3,15 +3,11 @@
 int main()
 
 {
-    int arr[2][3] = {
+    int n;
 
-        {10, 20, 30},
+    scanf("%d", &n);
 
-        {40, 50, 60}
+    int x = n / 2;
 
-    };      
-
-    printf("%d\n", *arr[0]);
-
-    printf("%p\n", &arr[1]);
+    printf("%d", x);    
 }

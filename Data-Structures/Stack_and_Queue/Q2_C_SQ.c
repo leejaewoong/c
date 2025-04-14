@@ -112,13 +112,52 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
-{
-    /* add your code here */
+{    
+	// 연결 리스트의 사이즈가 0이면 함수 종료
+	if(ll->size == 0)	
+		return;
+			
+	removeAllItemsFromStack(s);	// 스택의 모든 원소를 삭제
+	
+	ListNode *cur = ll->head; // 연결 리스트를 순회할 포인트 선언
+
+	// 연결 리스트의 사이즈만큼 반복하며 리스트의 원소들을 스택에 삽입
+	for(int i = 0; i < ll->size; i++)
+	{
+		push(s, cur->item);
+		cur = cur->next;
+	}
 }
 
 void removeEvenValues(Stack *s)
 {
-	/* add your code here */
+	// 연결 리스트의 사이즈가 0이면 함수 종료
+	if(s->ll.size == 0)	
+		return;
+
+	// 임시 저장할 스택을 선언한 뒤 초기화
+	Stack temp;	
+	temp.ll.head = NULL;
+	temp.ll.size = 0;
+
+	int sSize = s->ll.size;	// 원래의 스택의 사이즈를 저장
+
+	// 원래 스택의 사이즈만큼 반복하며 모든 원소를 꺼내어 임시 저장용 스택에 삽입
+	for(int i = 0; i < sSize; i++)
+	{
+		int num = pop(s);
+		push(&temp, num);
+	}
+
+	int tempSize = temp.ll.size; // 임시 저장용 스택의 사이즈를 저장
+
+	// 임시 저장용 스택의 사이즈만큼 반복하며 원소를 꺼내되, 홀수인 경우만 원래의 스택에 삽입
+	for(int j = 0; j < tempSize; j++)
+	{
+		int num = pop(&temp);
+		if(num % 2 != 0)
+			push(s, num);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////

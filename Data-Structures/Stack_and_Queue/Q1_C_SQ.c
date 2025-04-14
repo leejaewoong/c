@@ -116,12 +116,52 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+	// 연결 리스트의 사이즈가 0이면 함수 종료
+	if(ll->size == 0)	
+		return;
+	
+	removeAllItemsFromQueue(q); // 큐에 있는 모든 원소 삭제
+
+	ListNode *cur = ll->head; // 연결 리스트의 노드를 순회할 포인트 선언
+
+	// 연결 리스트의 사이즈만큼 순회하며 큐에 노드 삽입
+	for(int i = 0; i < ll->size; i++)
+	{
+		enqueue(q, cur->item);
+		cur = cur->next;
+	}
 }
 
 void removeOddValues(Queue *q)
 {
-	/* add your code here */
+	// 연결 리스트의 사이즈가 0이면 함수 종료
+	if(q->ll.size == 0)
+		return;
+	
+	// 임시 저장용 큐를 생성 후 초기화
+	Queue temp;
+	temp.ll.head = NULL;
+	temp.ll.size = 0;
+
+	int size = q->ll.size; // 디큐로 인해 줄어들 큐의 원래 사이즈를 변수에 저장
+
+	// 큐의 원래 사이즈만큼 반복하며 아래 연산 수행	
+	for(int i = 0; i < size; i++)
+	{
+		int num = dequeue(q); // 디큐한 원소를 변수에 저장
+
+		// 디큐한 원소가 짝수면 임시 큐에 저장
+		if(num % 2 == 0)
+			enqueue(&temp, num);
+	}
+
+	// 임시 큐의 사이즈만큼 반복하며 아래 연산 수행
+	for(int j = 0; j < temp.ll.size; j++)
+	{
+		// 임시 큐의 원소들을 디큐하여 원래의 큐에 인큐
+		int num = dequeue(&temp);
+		enqueue(q, num);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////

@@ -86,7 +86,30 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	int len = ll->size; // ll에 연결된 노드 길이 확인
+	int idx = 0; // 11의 노드를 순회할 포인트 선언
+	ListNode *cur = ll->head; // 인덱스 추적용 변수 선언
+
+	// ll의 노드를 순회하며 아래 연산 수행
+	for(int i = 0; i < len; i++)
+	{
+		// 주목 노드의 값이 홀수면 cur, idx 업데이트 후 continue
+		if(cur->item % 2 != 0)
+		{
+			idx++;
+			cur = cur->next;
+			continue;
+		}
+
+		// 주목 노드의 값이 홀수면, 해당 노드를 제일 뒤에 삽입 후 삭제		
+		else
+		{
+			insertNode(ll, len, cur->item);
+			removeNode(ll, idx);
+			cur = findNode(ll, idx); // 노드 삭제 시 cur이 가리키고 있던 주소를 당겨진 다음 노드를 가리키도록 조정
+		}
+	}
+	return;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
