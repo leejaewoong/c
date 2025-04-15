@@ -103,7 +103,58 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	// 스택이 비어 있거나 홀수이면 0 반환
+	if(s->ll.size == 0 || s->ll.size % 2 != 0)
+		return 0;	
+
+	// 최종 반환할 상태를 변수로 선언
+	int status = 1;
+		
+	Stack temp; // 임시 저장용 스택 생성
+
+	// 두 원소 비교용 변수 선언	
+	int pre = 0; 
+	int next = 0;	
+
+	int sSize = s->ll.size; // 모든 원소 출력을 위해 원래의 사이즈 저장
+
+	// 원래 스택의 사이즈만큼 반복하며 아래 연산 수행
+	for(int i = 0; i < sSize; i++)
+	{
+		// 한 쌍의 첫 원소는 출력하여 임시 저장용 스택에 삽입 후 continue
+		if(i % 2 == 0)
+		{		
+			pre = pop(s);
+			push(&temp, pre);	
+			continue;	
+		}
+		
+		// 한 쌍의 두번째 원소를 출력하여 임시 저장용 스택에 삽입
+		else
+		{
+			next = pop(s);
+			push(&temp, next);
+		}
+
+		// 두 원소를 비교하여 연속된 숫자가 아니면 0으로 반환할 상태를 변경
+		if(abs(pre - next) != 1)
+		{
+			status = 0;
+		}
+	}
+	
+	// 임시 저장용 스택에 삽입된 원소를 다시 원래의 스택으로 복사
+	int again = 0;
+	int tempSize = temp.ll.size;
+
+	for(int j = 0; j < tempSize; j++) 
+	{
+		again = pop(&temp);
+		push(s, again);
+	}
+
+	// 최종 상태 반환
+	return status;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

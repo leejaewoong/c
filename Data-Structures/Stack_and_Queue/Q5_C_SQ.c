@@ -109,7 +109,14 @@ int main()
 
 void recursiveReverse(Queue *q)
 {
-/* add your code here */
+	// 큐가 비어 있으면 함수 종료
+	if(isEmptyQueue(q))
+		return;
+	
+	int num = dequeue(q); // 큐에서 출력한 원소를 변수에 저장
+	recursiveReverse(q); // 줄어든 큐를 인자로 재귀 함수 호출
+	enqueue(q, num); // 출력한 원소를 역순으로 큐에 삽입
+	return;		
 }
 
 //////////////////////////////////////////////////////////////////

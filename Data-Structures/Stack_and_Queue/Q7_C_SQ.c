@@ -85,9 +85,9 @@ int main()
 			break;
         case 2:
             if(balanced(str))
-                printf("not balanced!\n");
+				printf("balanced!\n");
             else
-                printf("balanced!\n");
+				printf("not balanced!\n");			
 			break;
 		case 0:
 			break;
@@ -95,16 +95,50 @@ int main()
 			printf("Choice unknown;\n");
 			break;
 		}
-
 	}
-
 	return 0;
 }
 
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	// 문자열이 비어 있거나, 홀수일 경우 O 반환
+	if(expression == NULL || strlen(expression) % 2 != 0)
+		return 0;
+
+	int size = strlen(expression); // 문자열 길이 저장
+
+	// 임시 저장용 스택 생성 및 초기화
+	Stack temp;
+	temp.ll.head = NULL;
+	temp.ll.size = 0;
+
+	// 문자열 길이만큼 반복하며 아래 연산 수행
+	for(int i = 0; i < size; i++)
+	{
+		int sign = expression[i]; // 검사할 문자를 변수에 저장
+
+		// 검사할 문자가 열린 괄호이면 임시 스택에 삽입
+		if(sign == '[' || sign == '(' || sign == '{') 
+		{		
+			push(&temp, sign);
+		}
+		
+		// 검사할 문자가 닫힌 괄호이면 아래 연산 수행
+		else
+		{			
+			// 스택이 비어있으면 0 반환
+			if (isEmptyStack(&temp)) 
+				return 0;
+
+			// 검사할 괄호가 스택에서 꺼낸 괄호와 한 쌍이 아니면 0 반환
+			char comp = pop(&temp); 
+
+			if ((comp == '(' && sign != ')') || (comp == '{' && sign != '}') || (comp == '[' && sign != ']'))
+				return 0;
+		}
+	}
+	return isEmptyStack(&temp); // 모든 검사가 끝난 후 스택이 비어 있는지 확인 후 참, 거짓 반환
 }
 
 ////////////////////////////////////////////////////////////

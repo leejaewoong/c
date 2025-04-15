@@ -112,7 +112,30 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	// 큐의 사이즈가 2개 미만이면 함수 종료
+	if(q->ll.size < 2)
+		return;	
+	
+	Stack temp; // 임시 저장용 스택 생성
+	
+	int num = 0; // 출력한 숫자를 저장하기 위한 변수 선언	
+	int qSize = q->ll.size; // 원래의 큐 사이즈를 저장		
+
+	// 큐 사이즈만큼 반복하며 큐에 있는 원소를 출력하여 임시 저장용 스택에 삽입
+	for(int i = 0; i < qSize; i++)
+	{
+		num = dequeue(q);
+		push(&temp, num);
+	}
+
+	int sSize = temp.ll.size; // 원래의 스택 사이즈를 저장
+
+	// 임시 저장용 스택 사이즈만큼 반복하며 스택에 있는 원소를 출력하여 큐에 삽입
+	for(int j = 0; j < sSize; j++)
+	{
+		num = pop(&temp);
+		enqueue(q, num);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

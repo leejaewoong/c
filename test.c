@@ -1,13 +1,10 @@
 #include <stdio.h>
+#include <string.h>
 
-int main()
-
+void main()
 {
-    int n;
-
-    scanf("%d", &n);
-
-    int x = n / 2;
-
-    printf("%d", x);    
+    char str1[] = "cat";
+    char str2[] = "catt";
+    int num = strncmp(str1, str2, 4);
+    printf("%d", num);    
 }

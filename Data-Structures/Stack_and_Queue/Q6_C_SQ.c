@@ -111,8 +111,22 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
-}
+	while(1)
+	{
+		int num = peek(s); // 스택의 top에 위치한 원소 확인
+
+		// 입력 받은 숫자와 같으면 함수 종료
+		if(num == value)
+			break;
+
+		// 입력 받은 숫자와 다르면 출력
+		else
+		{
+			pop(s);
+		}
+	}
+}	
+
 
 //////////////////////////////////////////////////////////////////////////////////
 

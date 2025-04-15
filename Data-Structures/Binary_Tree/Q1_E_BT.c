@@ -116,7 +116,12 @@ int main()
 int identical(BTNode *tree1, BTNode *tree2)
 
 {
-   /* add your code here */
+    if(tree1 == NULL && tree2 == NULL) return 1; // 두 트리 모두 NULL이면 1을 반환   
+    if(tree1 == NULL || tree2 == NULL) return 0; // 두 트리 중 하나만 NULL이면 0을 반환
+    if(tree1->item == tree2->item) return 0; // 두 트리의 노드 값이 다르면 0을 반환
+
+    // 두 트리의 왼쪽 자식과 오른쪽 자식의 반환 값을 AND 조건으로 판별하여 0, 1 반환
+    return identical(tree1->left, tree2->left) && identical(tree1->right, tree2->right);        
 }
 
 /////////////////////////////////////////////////////////////////////////////////
