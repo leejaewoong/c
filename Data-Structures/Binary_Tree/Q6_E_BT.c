@@ -105,7 +105,19 @@ int main()
 
 void printSmallerValues(BTNode *node, int m)
 {
-	/* add your code here */
+	// 노드가 없으면 함수 종료
+    if(node == NULL)
+        return;
+
+    // 노드의 값이 입력받은 값보다 작으면 출력
+    if(node->item < m)
+        printf("%d ", node->item);
+
+    // 왼쪽, 오른쪽의 서브 트리를 순회하며 재귀적으로 조건부 출력
+    printSmallerValues(node->left, m);
+    printSmallerValues(node->right, m);
+
+    return;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

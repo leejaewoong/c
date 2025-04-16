@@ -102,7 +102,22 @@ int main()
 
 int hasGreatGrandchild(BTNode *node)
 {
-	/* add your code here */
+    // 노드가 없으면 0 반환 
+	if(node == NULL)
+        return 0;
+
+    // 왼쪽, 오른쪽 자식 노드를 순회
+    int left = hasGreatGrandchild(node->left);
+    int right = hasGreatGrandchild(node->right);
+
+    // 백트래킹하며 가장 깊은 depth 값을 저장
+    int depth = (left > right ? left : right) + 1;
+
+    // depth가 3 이상인 경우 현재 노드의 값을 출력
+    if(depth > 3)
+        printf("%d ", node->item);
+        
+    return depth;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

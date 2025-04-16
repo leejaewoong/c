@@ -105,7 +105,28 @@ int main()
 
 void mirrorTree(BTNode *node)
 {
-	/* add your code here */
+	// 노드가 없으면 함수 종료    
+    if(node == NULL)
+        return;
+
+    // 임시 노드를 만들어 왼쪽과 오른쪽 노드에 기존 노드의 오른쪽과 왼쪽 포인터를 대입
+    BTNode *temp = malloc(sizeof(BTNode));        
+    temp->left = node->right;
+    temp->right = node->left;
+
+    // 다시 기존 노드의 왼쪽과 오른쪽 포인터에 임시 노드의 오른쪽과 왼쪽 포인터를 대입
+    node->left = temp->left;
+    node->right = temp->right;
+
+    // 왼쪽 노드와 오른쪽 노드를 따라 재귀적으로 왼쪽과 오른쪽 노드를 바꿔주는 연산 수행
+    mirrorTree(node->left);
+    mirrorTree(node->right);
+
+    // 함수 종료 전에 임시 노드에 할당된 메모리와 포인터를 정리
+    free(temp);
+    temp = NULL;
+
+    return;    
 }
 
 //////////////////////////////////////////////////////////////////////////////////

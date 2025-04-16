@@ -87,8 +87,8 @@ int main()
 ////////////////////////////////////////////////////////////////////////
 
 int moveMaxToFront(ListNode **ptrHead)
-{
-    // 리스트에 노드가 없는 경우 함수 종료
+{    
+	// 리스트에 노드가 없는 경우 함수 종료
 	if(*ptrHead == NULL || (*ptrHead)->next == NULL) 
 	{
 		return 0;

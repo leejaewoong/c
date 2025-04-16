@@ -103,7 +103,22 @@ int main()
 int sumOfOddNodes(BTNode *node)
 
 {
-    /* add your code here */
+    // 노드가 없으면 0 반환
+    if(node == NULL)
+        return 0;
+    
+    // 값을 저장할 변수 선언
+    int sum = 0;
+
+    // 왼쪽, 오른쪽 자식으로부터 재귀적으로 값을 취합
+    int left = sumOfOddNodes(node->left);
+    int right = sumOfOddNodes(node->right);
+
+    // 노드의 값이 홀수인 경우에만 sum에 더하기
+    if(node->item % 2 != 0)
+        sum += node->item;
+
+    return sum + left + right; // 자신의 값과, 자식 노드들로부터 반환된 값을 모두 더하여 반환
 }
 
 //////////////////////////////////////////////////////////////////////////////////

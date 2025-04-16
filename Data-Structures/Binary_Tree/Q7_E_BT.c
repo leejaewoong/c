@@ -102,7 +102,23 @@ int main()
 
 int smallestValue(BTNode *node)
 {
-	/* add your code here */
+	// 노드가 없을 때는 0을 반환 
+    if(node == NULL)
+        return 0;    
+    
+    int num = node->item; // 현재 노드의 값을 변수에 저장
+
+    // 왼쪽 서브 트리를 순회하며 num보다 작은 값을 찾으면 num에 대입    
+    int left = smallestValue(node->left); 
+    if(left != 0)
+        num = num < left ? num : left;
+
+    // 오른쪽 서브 트리를 순회하며 num보다 작은 값을 찾으면 num에 대입
+    int right = smallestValue(node->right);
+    if(right != 0)
+        num = num < right ? num : right;
+
+    return num; // num 반환
 }
 
 //////////////////////////////////////////////////////////////////////////////////

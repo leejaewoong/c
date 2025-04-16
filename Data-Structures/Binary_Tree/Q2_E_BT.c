@@ -97,7 +97,19 @@ int main()
 int maxHeight(BTNode *node)
 
 {
-    /* add your code here */
+    // 노드가 없을 때 -1을 반환
+    if(node == NULL)
+        return -1;
+    
+    // 재귀함수를 호출하며 왼쪽 노드들의 Link 수를 확인 
+    int left = 1; // 자식 노드가 없을 경우 -1을 반환한다는 점을 고려하여 1로 초기화
+    left += maxHeight(node->left);
+
+    // 재귀함수를 호출하며 오른쪽 노드들의 Link 수를 확인 
+    int right = 1; // 자식 노드가 없을 경우 -1을 반환한다는 점을 고려하여 1로 초기화
+    right += maxHeight(node->right);
+
+    return left > right ? left : right; // 왼쪽과 오른쪽 노드 중 더 큰 값을 반환
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
